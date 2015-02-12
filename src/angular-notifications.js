@@ -62,7 +62,7 @@ angular
     // We use the _.reduce function and set MessagesService as the accumulator
     // and we also bind the callback to MessagesService
     _.reduce(contexts, function(result, context) {
-      result[_.capitalize(context)] = function (message) {
+      result[context] = function (message) {
         this.addMessage(message, context);
       };
       return result;
