@@ -64,6 +64,10 @@ angular.
         messages = _.without(messages, message);
       };
 
+      this.removeAllMessages = function (message) {
+        messages = [];
+      };
+
       // For each element of the `contexts` variable we create a new method on
       // the MessageService that delegates a call to `addMessage` but sets the
       // context
