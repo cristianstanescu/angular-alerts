@@ -1,7 +1,8 @@
 angular
 
 .module('examples', [
-  'angular-notifications'
+  'angular-notifications',
+  'ngAnimate'
 ])
 
 .controller('angularNotificationsExampleController', [
