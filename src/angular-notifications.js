@@ -64,7 +64,7 @@ angular.
         messages = _.without(messages, message);
       };
 
-      this.removeAllMessages = function (message) {
+      this.removeAllMessages = function () {
         messages = [];
       };
 
