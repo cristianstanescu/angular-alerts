@@ -96,7 +96,7 @@ angular.
         };
 
         // TODO: add to config
-        var fadeOutTime = 5000;
+        var fadeOutTime = 4000;
 
         $interval(function(){
           notificationsService.removeFirstMessage();
