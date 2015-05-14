@@ -2,7 +2,7 @@ angular.
 
   module('angular-notifications', []).
 
-  factory('notificationsService', function() {
+  factory('notificationsService', function () {
     function MessagesService () {
       var contexts = ['danger', 'warning', 'info', 'success'];
       var messages = [];
@@ -26,14 +26,14 @@ angular.
             text: _.trim(_.capitalize(attribute) + ' ' + text)
           });
 
-          if(messages.length >= 10) {
+          if (messages.length >= 10) {
             messages = _.last(messages, 10);
           }
         }
 
         function parseCollection(message) {
           _.each(message, function (value, key, list) {
-            if(value instanceof Array) {
+            if (value instanceof Array) {
               _.each(value, function(text) {
                 addNewMessage(key, text);
               });
@@ -44,7 +44,7 @@ angular.
           });
         }
 
-        if(typeof message === 'string') {
+        if (typeof message === 'string') {
           addNewMessage(null, message);
         } else {
           parseCollection(message);
@@ -52,7 +52,7 @@ angular.
       };
 
       // Returns an Array of all messages added
-      this.getMessages = function() {
+      this.getMessages = function () {
         return messages;
       };
 
@@ -90,30 +90,53 @@ angular.
     function(notificationsService, $interval, $templateCache) {
 
       function link(scope, element, attrs) {
+        // TODO: add fadeOutTime to config
+        var fadeOutTime = 5000;
+        var messageAdded = false;
+        var stop;
 
-        scope.$watch(notificationsService.getMessages, function(messages) {
-          scope.messages = messages;
-        });
+        function startRemoval() {
+          return $interval(function () {
+            notificationsService.removeFirstMessage();
+          }, fadeOutTime);
+        }
+
+        function stopRemoval() {
+          if (angular.isDefined(stop)) {
+            $interval.cancel(stop);
+            stop = undefined;
+          }
+        }
+
+        scope.$watch(
+          notificationsService.getMessages,
+          function (newMessages, oldMessages) {
+            scope.messages = newMessages;
+
+            if (newMessages.length > oldMessages.length) {
+              stopRemoval();
+              stop = startRemoval();
+            } else if (newMessages.length === 0) {
+              stopRemoval();
+            }
+          },
+          true
+        );
 
         scope.removeNotificationMessage = function (message) {
           notificationsService.removeMessage(message);
         };
 
-        // TODO: add to config
-        var fadeOutTime = 4000;
-
-        $interval(function(){
-          notificationsService.removeFirstMessage();
-        }, fadeOutTime);
+        scope.$on('$destroy', function() {
+          stopRemoval();
+        });
       }
 
       return {
         restrict: 'EA',
         link: link,
         template: $templateCache.get('notifications.html'),
-        scope: {
-          message: '='
-        }
+        scope: {}
       };
     }
   ]);
