@@ -68,6 +68,11 @@ angular.
         messages = [];
       };
 
+      // Return the last message added
+      this.lastMessage = function () {
+        return _.last(messages);
+      };
+
       // For each element of the `contexts` variable we create a new method on
       // the MessageService that delegates a call to `addMessage` but sets the
       // context
@@ -86,26 +91,17 @@ angular.
   }).
 
   directive('angularNotifications', [
-    'notificationsService', '$interval', '$templateCache',
-    function(notificationsService, $interval, $templateCache) {
+    'notificationsService', '$interval', '$templateCache', '$timeout',
+    function(notificationsService, $interval, $templateCache, $timeout) {
 
       function link(scope, element, attrs) {
         // TODO: add fadeOutTime to config
-        var fadeOutTime = 5000;
-        var messageAdded = false;
-        var stop;
+        var fadeOutTime = 7000;
 
-        function startRemoval() {
-          return $interval(function () {
-            notificationsService.removeFirstMessage();
+        function startRemoval(message) {
+          $timeout(function () {
+            notificationsService.removeMessage(message);
           }, fadeOutTime);
-        }
-
-        function stopRemoval() {
-          if (angular.isDefined(stop)) {
-            $interval.cancel(stop);
-            stop = undefined;
-          }
         }
 
         scope.$watch(
@@ -114,10 +110,7 @@ angular.
             scope.messages = newMessages;
 
             if (newMessages.length > oldMessages.length) {
-              stopRemoval();
-              stop = startRemoval();
-            } else if (newMessages.length === 0) {
-              stopRemoval();
+              startRemoval(notificationsService.lastMessage());
             }
           },
           true
@@ -126,10 +119,6 @@ angular.
         scope.removeNotificationMessage = function (message) {
           notificationsService.removeMessage(message);
         };
-
-        scope.$on('$destroy', function() {
-          stopRemoval();
-        });
       }
 
       return {
