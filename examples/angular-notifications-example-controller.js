@@ -1,7 +1,7 @@
 angular.
 
   module('examples', [
-    'angularNotifications',
+    'angularjsNotify',
     'ngAnimate'
   ]).
 
@@ -9,7 +9,7 @@ angular.
     NotifyProvider.config.displayTime = 3000;
   }]).
 
-  controller('angularNotificationsExampleController', [
+  controller('angularjsNotifyExampleController', [
     '$scope', 'Notify',
     function ($scope, Notify) {
       $scope.addNotification = function (msgType, msg) {

@@ -1,4 +1,4 @@
-describe('angularNotifications', function () {
+describe('angularjsNotify', function () {
   var $compile, $scope, element, Notify;
 
   function MessagesService() {
@@ -22,7 +22,7 @@ describe('angularNotifications', function () {
   beforeEach(function () {
     Notify = new MessagesService();
 
-    module('angularNotifications', function ($provide) {
+    module('angularjsNotify', function ($provide) {
       $provide.value('Notify', Notify);
     });
     module('notifications.html');
@@ -33,7 +33,7 @@ describe('angularNotifications', function () {
 
     $scope.messages = [];
 
-    element = _$compile_('<angular-notifications></angular-notifications>')($scope);
+    element = _$compile_('<angularjs-notify></angularjs-notify>')($scope);
 
     $scope.$digest();
   }));

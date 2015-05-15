@@ -1,7 +1,7 @@
 describe('Notify', function () {
   var Notify;
 
-  beforeEach(module('angularNotifications'));
+  beforeEach(module('angularjsNotify'));
 
   beforeEach(function () {
     inject(function ($injector) {

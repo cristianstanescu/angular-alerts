@@ -32,25 +32,25 @@ gulp.task('templates', function () {
       quotes: true
     })).
     pipe(templateCache({
-      module: 'angularNotifications',
+      module: 'angularjsNotify',
     })).
-    pipe(rename('angular-notifications.templates.js')).
+    pipe(rename('angularjs-notify.templates.js')).
     pipe(gulp.dest("build"));
 });
 
 gulp.task('service', function () {
   gulp.
-    src(['src/angular-notifications.js']).
+    src(['src/angularjs-notify.js']).
     pipe(jshint()).
     pipe(jshint.reporter('default')).
     pipe(jshint.reporter('fail')).
     // .pipe(ngAnnotate()).
     pipe(addsrc('build/*.js')).
     pipe(order([
-      'src/angular-notifications.js',
-      'build/angular-notifications.templates.js'
+      'src/angularjs-notify.js',
+      'build/angularjs-notify.templates.js'
     ])).
-    pipe(concat('angular-notifications.js')).
+    pipe(concat('angularjs-notify.js')).
     pipe(uglify()).
     pipe(rename({
       suffix: '.min'

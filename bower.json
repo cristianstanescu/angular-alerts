@@ -1,12 +1,12 @@
 {
-  "name": "angular-notifications",
-  "version": "1.0.0",
-  "homepage": "https://github.com/cristianstanescu/angular-notifications",
+  "name": "angularjs-notify",
+  "version": "1.1.0",
+  "homepage": "https://github.com/cristianstanescu/angularjs-notify",
   "authors": [
     "Cristian Stănescu <cristianstanescu@gmail.com>"
   ],
   "description": "AngularJS plugin to show notifications. Has a directive for positioning the notifications and works out of the box with Rails",
-  "main": "dist/angular-notifications.min.js",
+  "main": "dist/angularjs-notify.min.js",
   "keywords": [
     "Angular",
     "notifications",

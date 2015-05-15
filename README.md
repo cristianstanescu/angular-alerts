@@ -1,27 +1,27 @@
-#angular-notifications
+#angularjs-notify
 
 Show alert messages with **AngularJS** (for easy **Ruby on Rails** integration)
 
 #Install
 
-> bower install angular-notifications --save
+> bower install angularjs-notify --save
 
 #Usage
 
 For a working example, see the examples folder.
 
-You just need to add the `angularNotifications` module to your AngularJS app and include the
+You just need to add the `angularjsNotify` module to your AngularJS app and include the
 `Notify` service when you need to show notifications.
 
 ```js
 angular.
 
   module('examples', [
-    'angularNotifications',
+    'angularjsNotify',
     'ngAnimate'
   ]).
 
-  controller('angularNotificationsExampleController', [
+  controller('angularjsNotifyExampleController', [
     '$scope', 'Notify',
     function ($scope, Notify) {
       $scope.addNotification = function (msgType, msg) {
@@ -31,12 +31,12 @@ angular.
   ]);
 ```
 
-The notifications will appear where the **angularNotifications** directive in included inside your
+The notifications will appear where the **angularjsNotify** directive in included inside your
 app's HTML template:
 
 ```html
 <body>
-    <angular-notifications></angular-notifications>
+    <angularjs-notify></angularjs-notify>
 </body>
 ```
 
@@ -53,7 +53,7 @@ config(['NotifyProvider', function (NotifyProvider) {
 }]).
 ```
 
-By default, **angular-notifications** will setup contextual methods for integration with Twitter
+By default, **angularjs-notify** will setup contextual methods for integration with Twitter
 Bootstrap (the template used for displaying messagesis also a Twitter Bootstrap alert) and will try
 to remove some keys from **Ruby on Rails** responses:
 
@@ -82,11 +82,11 @@ function (httpResponse) {
 }
 ```
 
-That's all, the **angularNotifications** directive will display: "Your are not Donald Draper!" as
-a Twitter Bootstrap alert.
+That's all, the **angularjsNotify** directive will display: "Your are not Donald Draper!" as a
+Twitter Bootstrap alert.
 
 Multiple errors will be displayed individually.
 
 #Dependencies
 
-Other than the obvious AngularJS, [lodash](https://lodash.com/), because I'm lazy and it's awesome.
+Tested on AngularJS 1.3.15 with [lodash](https://lodash.com/) 3.8.0.

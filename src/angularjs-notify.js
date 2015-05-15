@@ -1,8 +1,8 @@
 angular.
 
-  module('angularNotifications', []).
+  module('angularjsNotify', []).
 
-  provider('Notify', function AngularNotificationsProvider() {
+  provider('Notify', function AngularjsNotifyProvider() {
     var config = {
       contexts: ['danger', 'warning', 'info', 'success'],
       keysToSkip: ['base', 'error'],
@@ -111,7 +111,7 @@ angular.
     };
   }).
 
-  directive('angularNotifications', [
+  directive('angularjsNotify', [
     'Notify', '$templateCache', '$timeout',
     function(Notify, $templateCache, $timeout) {
 
