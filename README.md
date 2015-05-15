@@ -8,7 +8,7 @@ Show alert messages with **AngularJS** (for easy **Ruby on Rails** integration)
 
 #Usage
 
-For a working example, see the examples folder.
+For a working example, see http://embed.plnkr.co/PRMFJ9/preview or the examples folder.
 
 You just need to add the `angularjsNotify` module to your AngularJS app and include the
 `Notify` service when you need to show notifications.
