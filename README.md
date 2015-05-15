@@ -86,3 +86,7 @@ That's all, the **angularNotifications** directive will display: "Your are not D
 a Twitter Bootstrap alert.
 
 Multiple errors will be displayed individually.
+
+#Dependencies
+
+Other than the obvious AngularJS, [lodash](https://lodash.com/), because I'm lazy and it's awesome.
