@@ -2,8 +2,9 @@ angular.
 
   module('angular-notifications', []).
 
-  factory('notificationsService', function () {
+  factory('Notify', function () {
     function MessagesService () {
+      // TODO: add context to config
       var contexts = ['danger', 'warning', 'info', 'success'];
       var messages = [];
 
@@ -91,8 +92,8 @@ angular.
   }).
 
   directive('angularNotifications', [
-    'notificationsService', '$interval', '$templateCache', '$timeout',
-    function(notificationsService, $interval, $templateCache, $timeout) {
+    'Notify', '$templateCache', '$timeout',
+    function(Notify, $templateCache, $timeout) {
 
       function link(scope, element, attrs) {
         // TODO: add fadeOutTime to config
@@ -100,24 +101,24 @@ angular.
 
         function startRemoval(message) {
           $timeout(function () {
-            notificationsService.removeMessage(message);
+            Notify.removeMessage(message);
           }, fadeOutTime);
         }
 
         scope.$watch(
-          notificationsService.getMessages,
+          Notify.getMessages,
           function (newMessages, oldMessages) {
             scope.messages = newMessages;
 
             if (newMessages.length > oldMessages.length) {
-              startRemoval(notificationsService.lastMessage());
+              startRemoval(Notify.lastMessage());
             }
           },
           true
         );
 
         scope.removeNotificationMessage = function (message) {
-          notificationsService.removeMessage(message);
+          Notify.removeMessage(message);
         };
       }
 
