@@ -6,6 +6,7 @@ angular.
     function MessagesService () {
       // TODO: add context to config
       var contexts = ['danger', 'warning', 'info', 'success'];
+      var keysToSkip = ['base', 'error'];
       var messages = [];
 
       // Builds and add a new message to the list.
@@ -21,10 +22,18 @@ angular.
       //
       // the service will build two alert messages
       this.addMessage = function (message, context) {
+        function attributeForDisplay(attribute) {
+          if (!attribute || keysToSkip.indexOf(attribute.toLowerCase()) > -1) {
+            return '';
+          } else {
+            return attribute.replace('_', ' ') + ' ';
+          }
+        }
+
         function addNewMessage(attribute, text) {
           messages.push({
             context: context || 'info',
-            text: _.trim(_.capitalize(attribute) + ' ' + text)
+            text: _.trim(_.capitalize(attributeForDisplay(attribute) + text))
           });
 
           if (messages.length >= 10) {
