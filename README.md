@@ -13,7 +13,7 @@ For a working example, see the examples folder.
 You just need to add the `angularNotifications` module to your AngularJS app and include the
 `Notify` service when you need to show notifications.
 
-```
+```js
 angular.
 
   module('examples', [
@@ -34,7 +34,7 @@ angular.
 The notifications will appear where the **angularNotifications** directive in included inside your
 app's HTML template:
 
-```
+```html
 <body>
     <angular-notifications></angular-notifications>
 </body>
@@ -47,7 +47,7 @@ You can use CSS to set the position for the directive where you want the notific
 
 You can use a provider in the configuration phase of your Angular app to customize some properties:
 
-```
+```js
 config(['NotifyProvider', function (NotifyProvider) {
     NotifyProvider.config.displayTime = 3000;
 }]).
@@ -57,7 +57,7 @@ By default, **angular-notifications** will setup contextual methods for integrat
 Bootstrap (the template used for displaying messagesis also a Twitter Bootstrap alert) and will try
 to remove some keys from **Ruby on Rails** responses:
 
-```
+```js
 var config = {
     contexts: ['danger', 'warning', 'info', 'success'],
     keysToSkip: ['base', 'error'],
@@ -70,13 +70,13 @@ var config = {
 Say you have an Angular app that calls a Rails server for some data and you receive a JSON response
 with an error like this:
 
-```
+```json
 {"base": ["Your are not Donald Draper!"]}
 ```
 
 In Angular, you might deal with an `$http` error response:
 
-```
+```js
 function (httpResponse) {
     Notify.danger(httpResponse.data);
 }
