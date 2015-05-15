@@ -32,7 +32,7 @@ gulp.task('templates', function () {
       quotes: true
     })).
     pipe(templateCache({
-      module: 'angular-notifications',
+      module: 'angularNotifications',
     })).
     pipe(rename('angular-notifications.templates.js')).
     pipe(gulp.dest("build"));

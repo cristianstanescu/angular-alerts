@@ -2,12 +2,19 @@ angular.
 
   module('angularNotifications', []).
 
-  factory('Notify', function () {
-    function MessagesService () {
-      // TODO: add context to config
-      var contexts = ['danger', 'warning', 'info', 'success'];
-      var keysToSkip = ['base', 'error'];
+  provider('Notify', function AngularNotificationsProvider() {
+    var config = {
+      contexts: ['danger', 'warning', 'info', 'success'],
+      keysToSkip: ['base', 'error'],
+      displayTime: 7000
+    };
+
+    function MessagesService(config) {
+      var contexts = config.contexts;
+      var keysToSkip = config.keysToSkip;
       var messages = [];
+
+      this.displayTime = config.displayTime;
 
       // Builds and add a new message to the list.
       //
@@ -97,7 +104,11 @@ angular.
       }, this, this);
     }
 
-    return new MessagesService();
+    this.config = config;
+
+    this.$get = function notifyFactory() {
+      return new MessagesService(config);
+    };
   }).
 
   directive('angularNotifications', [
@@ -105,13 +116,12 @@ angular.
     function(Notify, $templateCache, $timeout) {
 
       function link(scope, element, attrs) {
-        // TODO: add fadeOutTime to config
-        var fadeOutTime = 7000;
+        var displayTime = Notify.displayTime;
 
         function startRemoval(message) {
           $timeout(function () {
             Notify.removeMessage(message);
-          }, fadeOutTime);
+          }, displayTime);
         }
 
         scope.$watch(

@@ -1,5 +1,5 @@
 # angular-notifications
-Show alert messages with AngularJS (for easy Rails integration)
+Show alert messages with AngularJS (for easy Ruby on Rails integration)
 
 1. include module in your controller
 2. add notificationsService as a controller dependency

@@ -1,15 +1,19 @@
-angular
+angular.
 
-.module('examples', [
-  'angular-notifications',
-  'ngAnimate'
-])
+  module('examples', [
+    'angularNotifications',
+    'ngAnimate'
+  ]).
 
-.controller('angularNotificationsExampleController', [
-  '$scope', 'notificationsService',
-  function($scope, notificationsService) {
-    $scope.addNotification = function (msgType, msg) {
-      notificationsService.addMessage(msg, msgType);
-    };
-  }
-]);
+  config(['NotifyProvider', function(NotifyProvider) {
+    NotifyProvider.config.displayTime = 3000;
+  }]).
+
+  controller('angularNotificationsExampleController', [
+    '$scope', 'Notify',
+    function ($scope, Notify) {
+      $scope.addNotification = function (msgType, msg) {
+        Notify.addMessage(msg, msgType);
+      };
+    }
+  ]);
