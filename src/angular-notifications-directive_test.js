@@ -1,59 +1,55 @@
-describe('asraMessagesDirective', function() {
-  var $compile, $rootScope, element, messagesService;
+describe('angularNotifications', function () {
+  var $compile, $scope, element, Notify;
 
   function MessagesService() {
-    var messages = [{ context: 'one' }, { context: 'two' }];
+    var that = this;
+
+    this.messages = [{ context: 'one' }, { context: 'two' }];
 
     this.getMessages = function () {
-        return messages;
+      return that.messages;
+    };
+
+    this.addMessage = function (message) {
+      that.messages.push(message);
+    };
+
+    this.lastMessage = function () {
+      return "this is the last";
     };
   }
 
-  beforeEach(function() {
-    module('search.messages-directive', function ($provide) {
-      $provide.value('messagesService', new MessagesService());
+  beforeEach(function () {
+    Notify = new MessagesService();
+
+    module('angularNotifications', function ($provide) {
+      $provide.value('Notify', Notify);
     });
-    module('app/assets/javascripts/components/search/messages.html');
-    module('app/assets/javascripts/components/search/alert-timeout.html');
+    module('notifications.html');
   });
 
-  beforeEach(inject(function(_$compile_, _$rootScope_, $injector, $templateCache){
-    $compile = _$compile_;
-    $rootScope = _$rootScope_;
-    var $httpBackend = $injector.get('$httpBackend');
+  beforeEach(inject(function (_$compile_, _$rootScope_){
+    $scope = _$rootScope_;
 
-    // Mock the request for the template. Respond with the template loaded
-    // into the $templateCache by the 'ng-html2js' preprocessor
-    $httpBackend.
-      whenGET('<%= asset_path("components/search/messages.html") %>').
-      respond($templateCache.get(
-        'app/assets/javascripts/components/search/messages.html'
-      ));
+    $scope.messages = [];
 
-    $httpBackend.
-      whenGET('<%= asset_path("components/search/alert-timeout.html") %>').
-      respond($templateCache.get(
-        'app/assets/javascripts/components/search/alert-timeout.html'
-      ));
+    element = _$compile_('<angular-notifications></angular-notifications>')($scope);
 
-    element = $compile('<asra-messages></asra-messages>')($rootScope);
-
-    $httpBackend.flush();
+    $scope.$digest();
   }));
 
-  it('replaces the element with the appropriate content', function() {
+  it('adds divs with alert classes', function () {
     // The following functions are based on jQuery or Angular's jqLite
     // We need to wrap the element in order to get the html() including the root
     // container specified in the template
     element.wrap('<div>');
     var element_html = element.parent().html();
 
-    expect(element_html).not.toContain('<asra-messages></asra-messages>');
-    expect(element_html).toContain('<div class="alerts-panel row">');
+    expect(element_html).toContain('div class="alert alert-');
   });
 
-  it('displays all alert messages texts set in scope', function() {
-    $rootScope.messages = [
+  it('displays all alert messages texts set', function () {
+    Notify.messages = [
       {
         text: "Well done! You successfully read this important alert message."
       },
@@ -62,7 +58,7 @@ describe('asraMessagesDirective', function() {
       }
     ];
 
-    $rootScope.$digest();
+    $scope.$digest();
 
     expect(element.html()).
       toContain("Well done! You successfully read this important alert message.");
@@ -70,15 +66,19 @@ describe('asraMessagesDirective', function() {
       toContain("Warning! Better check yourself, you're not looking too good.");
   });
 
-  it('it builds alert contextual classes for all messages', function() {
-    $rootScope.messages = [{ context: 'success' }, { context: 'info' }];
-    $rootScope.$digest();
+  it('it builds alert contextual classes for all messages', function () {
+    Notify.messages = [{ context: 'success' }, { context: 'info' }];
+
+    $scope.$digest();
 
     expect(element.html()).toContain('alert-success');
     expect(element.html()).toContain('alert-info');
   });
 
-  it('uses the messages service to get messages', function() {
-    expect($rootScope.messages.length).toEqual(2);
+  it('uses the Notify service to get messages', function () {
+    Notify.addMessage("fdafds");
+    $scope.$digest();
+
+    expect(element.html().match(/alert alert-/g).length).toEqual(3);
   });
 });

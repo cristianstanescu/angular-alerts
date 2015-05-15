@@ -1,6 +1,6 @@
 angular.
 
-  module('angular-notifications', []).
+  module('angularNotifications', []).
 
   factory('Notify', function () {
     function MessagesService () {
@@ -28,7 +28,7 @@ angular.
           });
 
           if (messages.length >= 10) {
-            messages = _.last(messages, 10);
+            messages = _.slice(messages, 0, 10);
           }
         }
 
