@@ -5,7 +5,7 @@ angular.
     'ngAnimate'
   ]).
 
-  config(['NotifyProvider', function(NotifyProvider) {
+  config(['NotifyProvider', function (NotifyProvider) {
     NotifyProvider.config.displayTime = 3000;
   }]).
 
