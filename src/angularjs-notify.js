@@ -40,7 +40,8 @@ angular.
         function addNewMessage(attribute, text) {
           messages.push({
             context: context || 'info',
-            text: _.trim(_.capitalize(attributeForDisplay(attribute) + text))
+            text: _.trim(_.capitalize(attributeForDisplay(attribute) + text)),
+            attribute: attribute
           });
 
           if (messages.length >= 10) {

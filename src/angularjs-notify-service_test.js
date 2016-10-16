@@ -40,7 +40,7 @@ describe('Notify', function () {
         });
       });
 
-      it('as objects with "context", "text" attributes', function () {
+      it('as objects with "context", "text", "attribute"', function () {
         Notify.addMessage(
           {
             "email":["can't be blank", "is not an email"],
@@ -52,6 +52,7 @@ describe('Notify', function () {
         _.each(Notify.getMessages(), function (message) {
           expect(_.has(message, 'context')).toEqual(true);
           expect(_.has(message, 'text')).toEqual(true);
+          expect(_.has(message, 'attribute')).toEqual(true);
         });
       });
 
