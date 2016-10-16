@@ -5,12 +5,12 @@ var jshint = require('gulp-jshint');
 var rename = require('gulp-rename');
 var header = require('gulp-header');
 var templateCache = require('gulp-angular-templatecache');
-var minifyHtml = require("gulp-minify-html");
+var minifyHtml = require('gulp-minify-html');
 var concat = require('gulp-concat');
 var addsrc = require('gulp-add-src');
-var order = require("gulp-order");
+var order = require('gulp-order');
 var del = require('del');
-var karma = require('karma').server;
+var Server = require('karma').Server;
 
 var pkg = require('./package.json');
 var banner = ['/**',
@@ -35,7 +35,7 @@ gulp.task('templates', function () {
       module: 'angularjsNotify',
     })).
     pipe(rename('angularjs-notify.templates.js')).
-    pipe(gulp.dest("build"));
+    pipe(gulp.dest('build'));
 });
 
 gulp.task('service', function () {
@@ -62,17 +62,19 @@ gulp.task('service', function () {
 
 // Run test once and exit
 gulp.task('test', function (done) {
-  karma.start({
+  server = new Server({
     configFile: __dirname + '/karma.conf.js',
     singleRun: true
   }, done);
+  server.start();
 });
 
 // Watch for file changes and re-run tests on each change
 gulp.task('tdd', function (done) {
-  karma.start({
+  server = new Server({
     configFile: __dirname + '/karma.conf.js'
   }, done);
+  server.start();
 });
 
 gulp.task('clean', function (cb) {

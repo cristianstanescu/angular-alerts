@@ -89,4 +89,4 @@ Multiple errors will be displayed individually.
 
 #Dependencies
 
-Tested on AngularJS 1.3.15 with [lodash](https://lodash.com/) 3.8.0.
+Tested on AngularJS 1.3.15, 1.5.9 with [lodash](https://lodash.com/) 4.16.4.
