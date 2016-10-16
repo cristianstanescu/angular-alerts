@@ -33,7 +33,7 @@ angular.
           if (!attribute || keysToSkip.indexOf(attribute.toLowerCase()) > -1) {
             return '';
           } else {
-            return attribute.replace('_', ' ') + ' ';
+            return attribute.replace(/_/g, ' ') + ' ';
           }
         }
 

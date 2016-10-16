@@ -75,10 +75,10 @@ describe('Notify', function () {
     });
 
     it('removes underscores from the keys', function () {
-      Notify.addMessage({"password_confirmation": "not the same"});
+      Notify.addMessage({"date_of_birth": "is not valid"});
 
       expect(Notify.getMessages()[0].text).
-        toEqual("Password confirmation not the same");
+        toEqual("Date of birth is not valid");
     });
   });
 
