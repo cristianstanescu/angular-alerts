@@ -51,6 +51,7 @@ gulp.task('service', function () {
       'build/angularjs-notify.templates.js'
     ])).
     pipe(concat('angularjs-notify.js')).
+    pipe(gulp.dest('dist')).
     pipe(uglify()).
     pipe(rename({
       suffix: '.min'
