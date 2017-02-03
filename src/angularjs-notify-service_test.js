@@ -49,10 +49,10 @@ describe('Notify', function () {
           'danger'
         );
 
-        _.each(Notify.getMessages(), function (message) {
-          expect(_.has(message, 'context')).toEqual(true);
-          expect(_.has(message, 'text')).toEqual(true);
-          expect(_.has(message, 'attribute')).toEqual(true);
+        angular.forEach(Notify.getMessages(), function (message) {
+          expect(message.hasOwnProperty('context')).toEqual(true);
+          expect(message.hasOwnProperty('text')).toEqual(true);
+          expect(message.hasOwnProperty('attribute')).toEqual(true);
         });
       });
 
@@ -113,9 +113,9 @@ describe('Notify', function () {
 
   describe('getMessages', function () {
     it('only returns 10 maximum messages', function () {
-      _.times(15, function () {
+      for (var i = 15 - 1; i >= 0; i--) {
         Notify.success({"email": "can't be blank"});
-      });
+      }
       expect(Notify.getMessages().length).toEqual(10);
     });
   });

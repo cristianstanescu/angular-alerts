@@ -38,21 +38,24 @@ angular.
         }
 
         function addNewMessage(attribute, text) {
+          var msg = (attributeForDisplay(attribute) + text).trim();
+          msg = msg.charAt(0).toUpperCase() + msg.slice(1);
+
           messages.push({
             context: context || 'info',
-            text: _.trim(_.capitalize(attributeForDisplay(attribute) + text)),
+            text: msg,
             attribute: attribute
           });
 
           if (messages.length >= 10) {
-            messages = _.slice(messages, 0, 10);
+            messages = messages.slice(0, 10);
           }
         }
 
         function parseCollection(message) {
-          _.each(message, function (value, key, list) {
+          angular.forEach(message, function (value, key, list) {
             if (value instanceof Array) {
-              _.each(value, function(text) {
+              angular.forEach(value, function(text) {
                 addNewMessage(key, text);
               });
             } else {
@@ -75,11 +78,13 @@ angular.
       };
 
       this.removeFirstMessage = function () {
-        messages = _.rest(messages);
+        messages = messages.slice(1);
       };
 
       this.removeMessage = function (message) {
-        messages = _.without(messages, message);
+        messages = messages.filter(function (msg) {
+          return msg === message;
+        });
       };
 
       this.removeAllMessages = function () {
@@ -88,21 +93,18 @@ angular.
 
       // Return the last message added
       this.lastMessage = function () {
-        return _.last(messages);
+        return messages.slice(-1)[0];
       };
 
       // For each element of the `contexts` variable we create a new method on
       // the MessageService that delegates a call to `addMessage` but sets the
-      // context
-      //
-      // We use the _.reduce function and set MessagesService as the accumulator
-      // and we also bind the callback to MessagesService
-      _.reduce(contexts, function(result, context) {
+      // context.
+      contexts.reduce(function(result, context) {
         result[context] = function (message) {
           this.addMessage(message, context);
         };
         return result;
-      }, this, this);
+      }, this);
     }
 
     this.config = config;
