@@ -1,3 +1,10 @@
+/**
+ * angularjs-notify - AngularJS plugin to show notifications. Has a directive for positioning the notifications and works out of the box with Rails
+ * @author Cristian Stănescu
+ * @version v1.3.1
+ * @link https://github.com/cristianstanescu/angularjs-notify
+ * @license MIT
+ */
 angular.
 
   module('angularjsNotify', []).
