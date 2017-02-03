@@ -89,9 +89,7 @@ angular.
       };
 
       this.removeMessage = function (message) {
-        messages = messages.filter(function (msg) {
-          return msg === message;
-        });
+        messages.splice(messages.indexOf(message), 1);
       };
 
       this.removeAllMessages = function () {
